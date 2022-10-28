@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container } from './App.styled';
+import { Container, ContactTitle, ContactTitleSecond } from './App.styled';
 import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
 import { Filter } from './Filter/Filter';
@@ -16,22 +16,33 @@ export class App extends Component {
   };
 
   addContact = contact => {
+    if (this.state.contacts.find(({ name }) => name === contact.name)) {
+      alert(`${contact.name} is already in contacts.`);
+      return false;
+    }
     this.setState(prev => {
       return { contacts: [...prev.contacts, contact] };
     });
+    return true;
   };
 
   FilterChange = filter => {
     this.setState({ filter });
   };
 
+  removeContact = id => {
+    this.setState(prev => ({
+      contacts: prev.contacts.filter(el => el.id !== id),
+    }));
+  };
+
   render() {
     return (
       <Container>
-        <h1>Phonebook</h1>
+        <ContactTitle>Phonebook</ContactTitle>
         <ContactForm addContact={this.addContact} />
 
-        <h2>Contacts</h2>
+        <ContactTitleSecond>Contacts</ContactTitleSecond>
         <Filter onChange={this.FilterChange} value={this.state.filter} />
         <ContactList
           contacts={this.state.contacts.filter(
@@ -39,6 +50,7 @@ export class App extends Component {
               !this.state.filter ||
               name.toLowerCase().includes(this.state.filter.toLowerCase())
           )}
+          removeContact={this.removeContact}
         />
       </Container>
     );
