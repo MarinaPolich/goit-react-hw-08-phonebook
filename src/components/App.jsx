@@ -26,8 +26,16 @@ export class App extends Component {
     return true;
   };
 
-  FilterChange = filter => {
+  filterChange = filter => {
     this.setState({ filter });
+  };
+
+  filterContacts = () => {
+    return !this.state.filter
+      ? this.state.contacts
+      : this.state.contacts.filter(({ name }) =>
+          name.toLowerCase().includes(this.state.filter.toLowerCase())
+        );
   };
 
   removeContact = id => {
@@ -43,13 +51,9 @@ export class App extends Component {
         <ContactForm addContact={this.addContact} />
 
         <ContactTitleSecond>Contacts</ContactTitleSecond>
-        <Filter onChange={this.FilterChange} value={this.state.filter} />
+        <Filter onChange={this.filterChange} value={this.state.filter} />
         <ContactList
-          contacts={this.state.contacts.filter(
-            ({ name }) =>
-              !this.state.filter ||
-              name.toLowerCase().includes(this.state.filter.toLowerCase())
-          )}
+          contacts={this.filterContacts()}
           removeContact={this.removeContact}
         />
       </Container>
