@@ -1,7 +1,12 @@
-import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { removeContact } from 'redux/contactsSlice';
 import { ContactListItem } from 'components/ContactListItem/ContactListItem';
+import { getFilterContacts } from 'redux/selectors';
 
-export const ContactList = ({ contacts, removeContact }) => {
+export const ContactList = () => {
+  const dispatch = useDispatch();
+  const contacts = useSelector(getFilterContacts);
+
   return (
     <ul>
       {contacts.map(({ name, number, id }) => (
@@ -9,20 +14,9 @@ export const ContactList = ({ contacts, removeContact }) => {
           key={id}
           name={name}
           number={number}
-          removeContact={() => removeContact(id)}
+          removeContact={() => dispatch(removeContact(id))}
         />
       ))}
     </ul>
   );
-};
-
-ContactList.propTypes = {
-  contacts: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      number: PropTypes.string.isRequired,
-    }).isRequired
-  ).isRequired,
-  removeContact: PropTypes.func.isRequired,
 };
