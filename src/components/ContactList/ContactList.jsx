@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { removeContact } from 'redux/contactsSlice';
+import { deleteContact } from 'redux/operations';
 import { ContactListItem } from 'components/ContactListItem/ContactListItem';
 import { getFilterContacts } from 'redux/selectors';
 
@@ -9,12 +9,12 @@ export const ContactList = () => {
 
   return (
     <ul>
-      {contacts.map(({ name, number, id }) => (
+      {contacts.map(({ name, phone, id }) => (
         <ContactListItem
           key={id}
           name={name}
-          number={number}
-          removeContact={() => dispatch(removeContact(id))}
+          number={phone}
+          deleteContact={() => dispatch(deleteContact(id))}
         />
       ))}
     </ul>

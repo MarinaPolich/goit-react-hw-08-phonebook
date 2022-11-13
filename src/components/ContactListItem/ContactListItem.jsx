@@ -1,11 +1,11 @@
 import PropTypes from 'prop-types';
 import { Item, ContactBtn } from './ContactListItem.styled';
 
-export const ContactListItem = ({ name, number, removeContact }) => {
+export const ContactListItem = ({ name, number, deleteContact }) => {
   return (
     <Item>
       {name}: {number}
-      <ContactBtn onClick={removeContact}>Delete</ContactBtn>
+      <ContactBtn onClick={deleteContact}>Delete</ContactBtn>
     </Item>
   );
 };
@@ -13,5 +13,5 @@ export const ContactListItem = ({ name, number, removeContact }) => {
 ContactListItem.propTypes = {
   name: PropTypes.string.isRequired,
   number: PropTypes.string.isRequired,
-  removeContact: PropTypes.func.isRequired,
+  deleteContact: PropTypes.func.isRequired,
 };
