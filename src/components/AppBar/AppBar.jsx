@@ -3,9 +3,9 @@ import { Suspense } from 'react';
 import { useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 import authSelectors from 'redux/auth/auth-selectors';
-import { Navigation } from './Navigation';
-import { UserMenu } from './UserMenu/UserMenu';
-import { AuthNav } from './AuthNav';
+import { Navigation } from '../Navigation/Navigation';
+import { UserMenu } from '../UserMenu/UserMenu';
+import { AuthNav } from '../AuthNav/AuthNav';
 
 export const AppBar = () => {
   const isLoggedIn = useSelector(authSelectors.getIsLoggedIn);

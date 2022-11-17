@@ -7,6 +7,7 @@ const authSlice = createSlice({
     user: { name: null, email: null },
     token: null,
     isLoggedIn: false,
+    isRefreshing: false,
   },
   extraReducers: {
     [authOperations.register.fulfilled](state, action) {
@@ -24,9 +25,15 @@ const authSlice = createSlice({
       state.token = null;
       state.isLoggedIn = false;
     },
+    [authOperations.refreshUser.pending](state) {
+      state.isRefreshing = true;
+    },
     [authOperations.refreshUser.fulfilled](state, action) {
       state.user = action.payload;
       state.isLoggedIn = true;
+    },
+    [authOperations.refreshUser.rejected](state) {
+      state.isRefreshing = false;
     },
   },
 });
