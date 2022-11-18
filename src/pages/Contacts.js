@@ -14,8 +14,8 @@ import { Loader } from '../components/Loader/Loader';
 
 const Contacts = () => {
   const dispatch = useDispatch();
-  const isLoading = useSelector(getIsLoading);
-  const error = useSelector(getError);
+  // const isLoading = useSelector(getIsLoading);
+  // const error = useSelector(getError);
 
   useEffect(() => {
     dispatch(fetchContacts());
@@ -27,7 +27,7 @@ const Contacts = () => {
       <ContactForm />
       <ContactTitleSecond>Contacts</ContactTitleSecond>
       <Filter />
-      {isLoading && !error && <Loader />}
+      {/* {isLoading && !error && <Loader />} */}
       <ContactList />
     </Container>
   );

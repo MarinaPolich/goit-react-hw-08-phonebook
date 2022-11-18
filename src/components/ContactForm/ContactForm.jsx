@@ -5,6 +5,10 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addContact } from 'redux/contacts/operations';
 import { getAllContacts } from 'redux/contacts/selectors';
 // import { Button, Menu, MenuItem } from '@mui/material';
+import {
+  useAddContactMutation,
+  useGetContactsQuery,
+} from 'redux/contacts/contactsAPI';
 
 const initialValues = {
   name: '',
@@ -12,15 +16,19 @@ const initialValues = {
 };
 
 export const ContactForm = () => {
-  const contacts = useSelector(getAllContacts);
+  // const contacts = useSelector(getAllContacts);
+  const { data: contacts } = useGetContactsQuery();
   const dispatch = useDispatch();
+  const [addContact, { data }] = useAddContactMutation();
+  console.log('data :>> ', data);
 
   const handelSubmit = (values, { resetForm }) => {
-    if (contacts.find(({ name }) => name === values.name)) {
+    if (contacts?.find(({ name }) => name === values.name)) {
       alert(`${values.name} is already in contacts.`);
       return;
     }
-    dispatch(addContact({ ...values }));
+    // dispatch(addContact({ ...values }));
+    addContact(values);
     resetForm();
   };
 
