@@ -12,14 +12,17 @@ export const Input = styled.input`
   height: 50px;
   padding: 10px;
   margin-bottom: 20px;
-  border: 1px solid #a7a3a3;
+  background-color: #fcfeffd4;
+  border: 1px solid var(--input-text-color);
   border-radius: 4px;
-  font-size: 28px;
-  line-height: 2;
+  font-size: 20px;
+  width: 400px;
+  line-height: 1.2;
+  transition: all 250ms linear;
   cursor: pointer;
 
   &:hover,
   :focus {
-    border: 1px solid #126deb;
+    border: 1px solid var(--acent-color);
   }
 `;

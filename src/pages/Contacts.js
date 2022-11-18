@@ -25,9 +25,9 @@ const Contacts = () => {
     <Container>
       <ContactTitle>Phonebook</ContactTitle>
       <ContactForm />
-      {isLoading && !error && <Loader />}
       <ContactTitleSecond>Contacts</ContactTitleSecond>
       <Filter />
+      {isLoading && !error && <Loader />}
       <ContactList />
     </Container>
   );

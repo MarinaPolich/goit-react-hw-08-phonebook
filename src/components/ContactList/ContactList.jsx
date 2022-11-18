@@ -9,11 +9,11 @@ export const ContactList = () => {
 
   return (
     <ul>
-      {contacts.map(({ name, phone, id }) => (
+      {contacts.map(({ name, number, id }) => (
         <ContactListItem
           key={id}
           name={name}
-          number={phone}
+          number={number}
           deleteContact={() => dispatch(deleteContact(id))}
         />
       ))}
