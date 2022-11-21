@@ -23,9 +23,9 @@ const Contacts = () => {
 
   return (
     <Container>
-      <ContactTitle>Phonebook</ContactTitle>
+      <ContactTitle>Телефона книга</ContactTitle>
       <ContactForm />
-      <ContactTitleSecond>Contacts</ContactTitleSecond>
+      <ContactTitleSecond>Список друзів</ContactTitleSecond>
       <Filter />
       {isLoading && !error && <Loader />}
       <ContactList />

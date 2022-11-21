@@ -13,6 +13,7 @@ export const GlobalStyle = createGlobalStyle`
 body {
   height: 100vh;
   margin: 0;
+  padding-top: 80px;
   font-family: 'Montserrat', sans-serif;
   font-weight: 400;
   font-size: var(--base-font-size);
@@ -23,6 +24,8 @@ body {
   background-image: url("${imageGus}"), linear-gradient(270.19deg, #D9D9D9 0.15%, #A5DEFF 0.16%, #FCFEFF 99.82%) ;
   background-repeat: no-repeat;
   background-position: right bottom;
+  background-size: auto auto;
+  background-attachment: fixed;
 }
 
 code {

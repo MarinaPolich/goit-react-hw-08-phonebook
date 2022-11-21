@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import authOperations from './auth-operations';
 
 const handlePending = state => {
-  state.isLoggedIn = true;
+  state.isLoggedIn = false;
   state.error = null;
 };
 

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Formik } from 'formik';
-import { FormBox, Label, Input, FormBtn } from './ContactForm.styled';
+import { FormBox, Label, Input } from './ContactForm.styled';
 import { useSelector, useDispatch } from 'react-redux';
 import { addContact } from 'redux/contacts/operations';
 import { getAllContacts } from 'redux/contacts/selectors';
-// import { Button, Menu, MenuItem } from '@mui/material';
+import { Button } from '@mui/material';
 
 const initialValues = {
   name: '',
@@ -27,7 +27,7 @@ export const ContactForm = () => {
   return (
     <Formik initialValues={initialValues} onSubmit={handelSubmit}>
       <FormBox autoComplete="off">
-        <Label htmlFor="firstName">Name</Label>
+        <Label htmlFor="firstName">Ім'я та Прізвисько</Label>
         <Input
           id="firstName"
           type="text"
@@ -36,7 +36,7 @@ export const ContactForm = () => {
           title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
           required
         />
-        <Label htmlFor="tel">Number</Label>
+        <Label htmlFor="tel">Телефон</Label>
         <Input
           id="tel"
           type="tel"
@@ -45,8 +45,9 @@ export const ContactForm = () => {
           title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
           required
         />
-        <FormBtn type="submit">Add contact</FormBtn>
-        {/* <Button variant="outlined">Add contact</Button> */}
+        <Button type="submit" variant="outlined" color="secondary">
+          Додати друга
+        </Button>
       </FormBox>
     </Formik>
   );

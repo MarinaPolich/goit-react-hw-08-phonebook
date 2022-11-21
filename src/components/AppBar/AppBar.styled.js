@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+export const Main = styled.main`
+  height: calc(100vh - 80px);
+  overflow: auto;
   margin: 0 auto;
-  height: 100%;
-  padding: 0 30px;
-  /* position: relative; */
+  padding: 40px 30px 0px 30px;
 `;
 
 export const Header = styled.header`

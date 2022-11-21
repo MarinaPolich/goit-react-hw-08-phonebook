@@ -20,7 +20,13 @@ const register = createAsyncThunk(
       token.set(data.token);
       return data;
     } catch (error) {
-      return thunkAPI.rejectWithValue(error.message);
+      const payload = {};
+      if (error.response.data.errors?.name) payload.name = "Введіть своє ім'я";
+      if (error.response.data.keyPattern?.email)
+        payload.email = 'Такий друзяка вже зареєстрованний :)';
+      if (error.response.data.errors?.password)
+        payload.password = 'Мінімальна довжина шифру 7 символів';
+      return thunkAPI.rejectWithValue(payload);
     }
   }
 );
@@ -31,7 +37,10 @@ const logIn = createAsyncThunk('auth/login', async (credentials, thunkAPI) => {
     token.set(data.token);
     return data;
   } catch (error) {
-    return thunkAPI.rejectWithValue(error.message);
+    const message = {};
+    if (error.response.status === 400)
+      message.status = 'Такого друзяки не зареєстровано :(';
+    return thunkAPI.rejectWithValue(message);
   }
 });
 

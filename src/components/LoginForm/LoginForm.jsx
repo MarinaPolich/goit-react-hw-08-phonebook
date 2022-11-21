@@ -1,12 +1,12 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import authOperations from 'redux/auth/auth-operations';
 import * as React from 'react';
-import Box from '@mui/material/Box';
-import TextField from '@mui/material/TextField';
-import Button from '@mui/material/Button';
+import { Box, TextField, Button, FormHelperText } from '@mui/material';
+import authSelectors from 'redux/auth/auth-selectors';
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
+  const error = useSelector(authSelectors.getError);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -17,7 +17,7 @@ export const LoginForm = () => {
         password: password.value,
       })
     );
-    e.currentTarget.reset();
+    e.target.reset();
   };
 
   return (
@@ -31,6 +31,7 @@ export const LoginForm = () => {
       }}
       noValidate
       autoComplete="off"
+      error={error?.status}
     >
       <TextField
         id="filled-email-input"
@@ -39,8 +40,7 @@ export const LoginForm = () => {
         type="email"
         autoComplete="current-email"
         variant="filled"
-        color="warning"
-        size="normal"
+        color="secondary"
       />
       <TextField
         id="filled-password-input"
@@ -49,9 +49,24 @@ export const LoginForm = () => {
         type="password"
         autoComplete="current-password"
         variant="filled"
+        color="secondary"
       />
-      <Button type="submit" variant="outlined">
-        Log In
+      <div>
+        <FormHelperText
+          sx={{ m: 1, ml: '26px', width: '50ch' }}
+          error={!!error}
+        >
+          {error?.status}
+        </FormHelperText>
+      </div>
+
+      <Button
+        sx={{ mt: '20px' }}
+        color="secondary"
+        type="submit"
+        variant="outlined"
+      >
+        Завітати
       </Button>
     </Box>
   );

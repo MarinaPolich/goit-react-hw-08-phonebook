@@ -1,11 +1,12 @@
 import { RegisterForm } from 'components/RegisterForm/RegisterForm';
+import { BoxLog } from './Login/Login.styled';
 
 const Register = () => {
   return (
-    <div>
-      <h1>Registration</h1>
+    <BoxLog>
+      <h1>Доєднатися</h1>
       <RegisterForm />
-    </div>
+    </BoxLog>
   );
 };
 

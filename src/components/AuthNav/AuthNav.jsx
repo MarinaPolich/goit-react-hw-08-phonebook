@@ -4,7 +4,7 @@ export const AuthNav = () => {
   return (
     <div>
       <StyledLink to="/register">Доєднатися</StyledLink>
-      <StyledLink to="/login">Влетіти</StyledLink>
+      <StyledLink to="/login">Завітати</StyledLink>
     </div>
   );
 };

@@ -3,26 +3,7 @@ import { Suspense } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 import authSelectors from 'redux/auth/auth-selectors';
-// import { Navigation } from '../Navigation/Navigation';
-// import { UserMenu } from '../UserMenu/UserMenu';
 import { AuthNav } from '../AuthNav/AuthNav';
-// import { Container, Header } from './AppBar.styled';
-
-// export const AppBar = () => {
-//   const isLoggedIn = useSelector(authSelectors.getIsLoggedIn);
-//   return (
-//     <Container>
-//       <Header>
-//         <Navigation />
-//         {isLoggedIn ? <UserMenu /> : <AuthNav />}
-//       </Header>
-
-//       <Suspense fallback={<Loader />}>
-//         <Outlet />
-//       </Suspense>
-//     </Container>
-//   );
-// };
 import * as React from 'react';
 import {
   AppBar,
@@ -37,25 +18,16 @@ import {
   MenuItem,
   Avatar,
 } from '@mui/material';
-// import Box from '@mui/material/Box';
-// import  from '@mui/material/Toolbar';
-// import  from '@mui/material/IconButton';
-// import  from '@mui/material/Typography';
-// import  from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
-// import  from '@mui/material/Container';
-// import  from '@mui/material/Avatar';
-// import  from '@mui/material/Button';
-// import  from '@mui/material/Tooltip';
-// import  from '@mui/material/MenuItem';
 import FlutterDashIcon from '@mui/icons-material/FlutterDash';
 import { useNavigate, useResolvedPath } from 'react-router-dom';
 import UserAvatar from '../../images/gus3.svg';
 import authOperations from 'redux/auth/auth-operations';
+import { Main } from './AppBar.styled';
 
 const pages = [
-  { title: 'Гостина', to: '/' },
-  { title: 'Друзі', to: '/contacts' },
+  { title: 'Вітальня', to: '/', isPrivateLink: false },
+  { title: 'Друзі', to: '/contacts', isPrivateLink: true },
 ];
 const settings = [{ title: 'Відлетіти', to: '/' }];
 
@@ -91,7 +63,7 @@ export function ResponsiveAppBar() {
       <AppBar
         color="transparent"
         sx={{ mb: '60px', fontFamily: 'Montserrat' }}
-        position="static"
+        position="fixed"
       >
         <Container maxWidth="xl">
           <Toolbar disableGutters>
@@ -132,16 +104,23 @@ export function ResponsiveAppBar() {
                   display: { xs: 'block', md: 'none' },
                 }}
               >
-                {pages.map(({ title, to }) => (
-                  <MenuItem key={title} onClick={() => handleCloseNavMenu(to)}>
-                    <Typography
-                      textAlign="center"
-                      color={to === pathname && `var(--acent-color)`}
+                {pages
+                  .filter(
+                    ({ isPrivateLink }) => !(isPrivateLink && !isLoggedIn)
+                  )
+                  .map(({ title, to }) => (
+                    <MenuItem
+                      key={title}
+                      onClick={() => handleCloseNavMenu(to)}
                     >
-                      {title}
-                    </Typography>
-                  </MenuItem>
-                ))}
+                      <Typography
+                        textAlign="center"
+                        color={to === pathname && `var(--acent-color)`}
+                      >
+                        {title}
+                      </Typography>
+                    </MenuItem>
+                  ))}
               </Menu>
             </Box>
             <FlutterDashIcon
@@ -164,25 +143,27 @@ export function ResponsiveAppBar() {
               }}
             ></Typography>
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              {pages.map(({ title, to }) => (
-                <Button
-                  key={title}
-                  onClick={() => handleCloseNavMenu(to)}
-                  sx={{
-                    my: 2,
-                    fontFamily: 'Montserrat',
-                    fontSize: 20,
-                    fontWeight: 700,
-                    color:
-                      to === pathname
-                        ? `var(--acent-color)`
-                        : `var(--primary-text-color)`,
-                    display: 'block',
-                  }}
-                >
-                  {title}
-                </Button>
-              ))}
+              {pages
+                .filter(({ isPrivateLink }) => !(isPrivateLink && !isLoggedIn))
+                .map(({ title, to }) => (
+                  <Button
+                    key={title}
+                    onClick={() => handleCloseNavMenu(to)}
+                    sx={{
+                      my: 2,
+                      fontFamily: 'Montserrat',
+                      fontSize: 20,
+                      fontWeight: 700,
+                      color:
+                        to === pathname
+                          ? `var(--acent-color)`
+                          : `var(--primary-text-color)`,
+                      display: 'block',
+                    }}
+                  >
+                    {title}
+                  </Button>
+                ))}
             </Box>
 
             {isLoggedIn ? (
@@ -228,9 +209,11 @@ export function ResponsiveAppBar() {
           </Toolbar>
         </Container>
       </AppBar>
-      <Suspense fallback={<Loader />}>
-        <Outlet />
-      </Suspense>
+      <Main>
+        <Suspense fallback={<Loader />}>
+          <Outlet />
+        </Suspense>
+      </Main>
     </>
   );
 }
